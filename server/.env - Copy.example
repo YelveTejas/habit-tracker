@@ -1,0 +1,18 @@
+# Server
+PORT=5000
+NODE_ENV=development
+CLIENT_URL=http://localhost:5173
+
+# Database
+MONGO_URI=mongodb://127.0.0.1:27017/habitflow
+
+# Auth
+JWT_SECRET=change-me-to-a-long-random-string
+JWT_EXPIRES_IN=7d
+
+# Email (optional - reminders & password reset)
+SMTP_HOST=smtp.example.com
+SMTP_PORT=587
+SMTP_USER=
+SMTP_PASS=
+EMAIL_FROM="HabitFlow <no-reply@habitflow.app>"

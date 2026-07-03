@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-surface-light text-slate-800 antialiased dark:bg-surface-dark dark:text-slate-200;
+  }
+  ::selection {
+    @apply bg-emerald-200 dark:bg-emerald-800;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-slate-200/80 bg-surface-card shadow-sm
+           dark:border-slate-800 dark:bg-surface-dark-card;
+  }
+  .input {
+    @apply w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm outline-none
+           transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20
+           dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5
+           text-sm font-semibold text-white transition hover:bg-emerald-500 active:scale-[0.98]
+           disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 px-4 py-2.5
+           text-sm font-medium transition hover:bg-slate-100 active:scale-[0.98]
+           dark:border-slate-700 dark:hover:bg-slate-800;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
