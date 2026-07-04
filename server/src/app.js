@@ -31,13 +31,19 @@ const corsOptions = {
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 };
-app.set("trust proxy", true);
+app.set("trust proxy",1);
 app.use(helmet());
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
 app.use(express.json({ limit: '10kb' }));
 if (process.env.NODE_ENV !== 'production') app.use(morgan('dev'));
 
+app.get("/api/debug", (req, res) => {
+  res.json({
+    trustProxy: app.get("trust proxy"),
+    nodeEnv: process.env.NODE_ENV,
+  });
+});
 app.get('/api/health', (req, res) => res.json({ success: true, status: 'ok' }));
 
 app.use('/api/auth', authRoutes);
