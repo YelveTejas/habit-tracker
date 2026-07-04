@@ -6,6 +6,7 @@ import authRoutes from './routes/authRoutes.js';
 import habitRoutes from './routes/habitRoutes.js';
 import dashboardRoutes from './routes/dashboardRoutes.js';
 import { notFound, errorHandler } from './middleware/errorHandler.js';
+import connectDB from './config/db.js';
 
 const app = express();
 
@@ -46,9 +47,21 @@ app.get("/api/debug", (req, res) => {
 });
 app.get('/api/health', (req, res) => res.json({ success: true, status: 'ok' }));
 
-app.use('/api/auth', authRoutes);
-app.use('/api/habits', habitRoutes);
-app.use('/api/dashboard', dashboardRoutes);
+// Ensure a DB connection exists before any route that needs one runs. This makes
+// the connection independent of which file the deployment platform uses as its
+// entry point (e.g. Vercel invoking this app directly instead of server.js).
+const ensureDB = async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    next(err);
+  }
+};
+
+app.use('/api/auth', ensureDB, authRoutes);
+app.use('/api/habits', ensureDB, habitRoutes);
+app.use('/api/dashboard', ensureDB, dashboardRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
