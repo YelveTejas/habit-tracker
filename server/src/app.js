@@ -31,7 +31,7 @@ const corsOptions = {
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 };
-app.set("trust proxy",1);
+   app.set("trust proxy",1);
 app.use(helmet());
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
